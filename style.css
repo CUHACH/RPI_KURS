@@ -136,8 +136,7 @@ ul {
     max-width: 1500px;
     margin: 0 auto;
     display: grid;
-
-    grid-template-columns: repeat(4, 1fr); 
+    grid-template-columns: repeat(4, 1fr);
     gap: var(--spacing-default);
 }
 
@@ -153,21 +152,20 @@ ul {
 }
 
 .book-cover-placeholder {
-
     flex-shrink: 0;
     width: 80px;
     height: 120px;
     background-color: var(--color-button-default);
     border: 1px solid var(--color-border);
     border-radius: 4px;
+    overflow: hidden;
+    padding: 0;
+}
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 10px;
-    color: var(--color-text-secondary);
-    text-align: center;
-    padding: 5px;
+.book-cover-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .book-details {
@@ -295,4 +293,54 @@ ul {
     font-family: inherit;
     font-size: 14px;
     resize: vertical;
+}
+
+/* Контейнер формы загрузки */
+.upload-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px 25px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Заголовок формы */
+.upload-container h2 {
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    color: #333;
+}
+
+/* Инпут выбора файла */
+.upload-container input[type="file"] {
+    display: block;
+    margin: 0 auto 20px;
+    padding: 8px;
+    font-size: 1rem;
+}
+
+/* Кнопка загрузки */
+.upload-container button {
+    background-color: #464544;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.upload-container button:hover {
+    background-color: #5e5d5c;
+}
+
+/* Сообщение после загрузки */
+.upload-message {
+    margin-top: 15px;
+    font-size: 0.95rem;
+    color: #4CAF50;
 }
