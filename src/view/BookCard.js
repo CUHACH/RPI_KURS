@@ -10,11 +10,16 @@ function template(book) {
       <div class="book-details">
         <h3 class="book-title">${book.title}</h3>
         <p class="book-author">${book.author}</p>
+
         <div class="book-meta">
-          <span class="book-rating">Рейтинг (⭐)</span>
+          <div class="rating-container" data-id="${book.id}">
+            ${[1,2,3,4,5].map(i => 
+              `<span class="star ${book.rating >= i ? 'active' : ''}" data-value="${i}">★</span>`
+            ).join('')}
+          </div>
           <label>
             Статус:
-            <select class="book-status-select">
+            <select class="book-status" data-id="${book.id}">
               ${Object.entries(StatusLabel).map(([key, label]) =>
                 `<option value="${key}" ${book.status === key ? 'selected' : ''}>${label}</option>`
               ).join('')}
@@ -27,21 +32,40 @@ function template(book) {
 }
 
 export default class BookCard extends AbstractComponent {
-  constructor(book, onStatusChange) {
+  constructor(book, onStatusChange, onRatingChange) {
     super();
     this.book = book;
     this.onStatusChange = onStatusChange;
-    this.element.addEventListener('change', this.#statusHandler);
+    this.onRatingChange = onRatingChange;
+
+    this.element.addEventListener('change', this.statusHandler);
+    this.element.addEventListener('click', this.ratingHandler);
   }
 
   get template() {
     return template(this.book);
   }
 
-  #statusHandler = (evt) => {
-    const select = evt.target.closest('.book-status-select');
+  statusHandler = (evt) => {
+    const select = evt.target.closest('.book-status');
     if (!select) return;
     this.book.status = select.value;
     if (this.onStatusChange) this.onStatusChange(this.book);
+  }
+
+  ratingHandler = (evt) => {
+    const star = evt.target.closest('.star');
+    if (!star) return;
+
+    const rating = Number(star.dataset.value);
+    this.book.rating = rating;
+
+    if (this.onRatingChange) this.onRatingChange(this.book.id, rating);
+
+    // обновляем визуально
+    const container = this.element.querySelector('.rating-container');
+    container.querySelectorAll('.star').forEach((s, i) => {
+      s.classList.toggle('active', i < rating);
+    });
   }
 }

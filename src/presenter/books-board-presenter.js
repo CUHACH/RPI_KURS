@@ -1,5 +1,5 @@
 import BookCard from "../view/BookCard.js";
-import ListControlsComponent from "../view/ListControlComponent.js";
+import ListControlComponent from "../view/ListControlComponent.js";
 
 export default class BooksBoardPresenter {
   constructor({ container, model }) {
@@ -7,21 +7,15 @@ export default class BooksBoardPresenter {
     this.model = model;
     this.currentFilter = "all";
 
-    this.listControls = new ListControlsComponent({
+    this.listControls = new ListControlComponent({
       onFilterChange: this.handleFilterChange
     });
 
-    // Слушатель изменений модели
-    this.model.addObserver(() => {
-      if (this.bookListContainer) this.render();
-    });
+    this.model.addObserver(() => this.render());
   }
 
   init() {
-    // Рендер фильтров
     this.container.prepend(this.listControls.element);
-
-    // Контейнер карточек книг
     this.bookListContainer = document.createElement("section");
     this.bookListContainer.className = "book-cards-grid";
     this.container.append(this.bookListContainer);
@@ -36,7 +30,10 @@ export default class BooksBoardPresenter {
 
   handleStatusChange = (book) => {
     this.model.updateBook(book);
-    this.render();
+  }
+
+  handleRatingChange = (id, rating) => {
+    this.model.updateRating(id, rating);
   }
 
   render() {
@@ -45,15 +42,14 @@ export default class BooksBoardPresenter {
     this.bookListContainer.innerHTML = "";
 
     const books = this.currentFilter === "all"
-      ? this.model.all
-      : this.model.all.filter(book => book.status === this.currentFilter);
+      ? this.model.books
+      : this.model.books.filter(b => b.status === this.currentFilter);
 
     books.forEach(book => {
-      const card = new BookCard(book, this.handleStatusChange);
+      const card = new BookCard(book, this.handleStatusChange, this.handleRatingChange);
       this.bookListContainer.append(card.element);
     });
 
-    // Обновляем счётчик
     const countEl = this.listControls.element.querySelector(".count");
     if (countEl) countEl.textContent = books.length;
   }

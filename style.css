@@ -338,9 +338,32 @@ ul {
     background-color: #5e5d5c;
 }
 
-/* Сообщение после загрузки */
+
 .upload-message {
     margin-top: 15px;
     font-size: 0.95rem;
     color: #4CAF50;
+}
+
+
+.rating-container {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 8px;
+}
+
+.rating-container .star {
+    font-size: 22px;
+    color: #bbb;
+    cursor: pointer;
+    transition: transform 0.2s, color 0.2s;
+}
+
+.rating-container .star.active {
+    color: #ffb400;
+}
+
+.rating-container .star:hover,
+.rating-container .star:hover ~ .star {
+    transform: scale(1.2);
 }

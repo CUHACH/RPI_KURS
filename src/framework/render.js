@@ -24,9 +24,9 @@ function render(component, container, place = RenderPosition.BEFOREEND) {
 
   container.insertAdjacentElement(place, component.element);
 
-  // Вызов afterRender, если есть
+
   if (typeof component.afterRender === "function") {
-      component.afterRender();
+    component.afterRender();
   }
 }
 
