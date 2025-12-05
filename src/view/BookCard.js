@@ -62,7 +62,7 @@ export default class BookCard extends AbstractComponent {
 
     if (this.onRatingChange) this.onRatingChange(this.book.id, rating);
 
-    // обновляем визуально
+
     const container = this.element.querySelector('.rating-container');
     container.querySelectorAll('.star').forEach((s, i) => {
       s.classList.toggle('active', i < rating);

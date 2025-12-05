@@ -17,7 +17,9 @@ export default class NotesList extends AbstractComponent {
       noteItem.className = "note-item";
       noteItem.innerHTML = `
         <div class="book-info">
-          <img src="${book.cover}" alt="${book.title}" class="book-cover">
+          <div class="book-cover-placeholder">
+            <img src="${book.cover}" alt="${book.title}">
+          </div>
           <div class="details-text">
             <h3>${book.title}</h3>
             <p>${book.author}</p>
@@ -25,10 +27,17 @@ export default class NotesList extends AbstractComponent {
         </div>
         <textarea class="note-textarea" placeholder="Ваши заметки">${book.notes || ""}</textarea>
       `;
+
       const textarea = noteItem.querySelector("textarea");
-      textarea.addEventListener("input", (evt) => {
-        this.model.updateNotes(book.id, evt.target.value);
+
+
+      textarea.addEventListener("keydown", (evt) => {
+        if (evt.key === "Enter") {
+          evt.preventDefault();
+          this.model.updateNotes(book.id, evt.target.value);
+        }
       });
+
       this.element.append(noteItem);
     });
   }

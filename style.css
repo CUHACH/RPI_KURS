@@ -168,6 +168,13 @@ ul {
     object-fit: cover;
 }
 
+.book-info .book-cover-placeholder {
+    width: 80px;
+    height: 120px;
+    flex-shrink: 0;
+}
+
+
 .book-details {
     display: flex;
     flex-direction: column;
@@ -295,7 +302,7 @@ ul {
     resize: vertical;
 }
 
-/* Контейнер формы загрузки */
+
 .upload-container {
     max-width: 500px;
     margin: 40px auto;
@@ -307,14 +314,14 @@ ul {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Заголовок формы */
+
 .upload-container h2 {
     margin-bottom: 20px;
     font-size: 1.8rem;
     color: #333;
 }
 
-/* Инпут выбора файла */
+
 .upload-container input[type="file"] {
     display: block;
     margin: 0 auto 20px;
@@ -322,7 +329,7 @@ ul {
     font-size: 1rem;
 }
 
-/* Кнопка загрузки */
+
 .upload-container button {
     background-color: #464544;
     color: white;
